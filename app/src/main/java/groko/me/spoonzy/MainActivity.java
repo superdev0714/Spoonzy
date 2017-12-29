@@ -16,6 +16,7 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     WebView mWebView;
     @BindView(R.id.rlSplash)
     View rlSplash;
-    @BindView(R.id.tvStatus)
-    TextView tvStatus;
+    @BindView(R.id.imgBackground)
+    ImageView imgBackground;
     @BindView(R.id.tvRetry)
     TextView tvRetry;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
-            w.setStatusBarColor(Color.TRANSPARENT);
+            w.setStatusBarColor(Color.WHITE);
         }
 
         CookieManager.getInstance().setAcceptCookie(true);
@@ -57,12 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void load() {
         tvRetry.setVisibility(View.GONE);
-        tvStatus.setVisibility(View.VISIBLE);
         if (isNetworkAvailable()) {
-            tvStatus.setText("Loading...");
+            imgBackground.setImageResource(R.drawable.loading);
             loadWebView();
         } else {
-            tvStatus.setText("No Internet Connection");
+            imgBackground.setImageResource(R.drawable.no_internet_connection);
             tvRetry.setVisibility(View.VISIBLE);
         }
     }
